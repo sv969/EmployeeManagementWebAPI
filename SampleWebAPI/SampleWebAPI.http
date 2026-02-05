@@ -4,3 +4,12 @@ GET {{SampleWebAPI_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{SampleWebAPI_HostAddress}}/api/employee/Add
+Content-Type: application/json
+
+{
+  //Employee
+}
+
+###
