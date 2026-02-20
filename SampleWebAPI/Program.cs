@@ -19,6 +19,8 @@ builder.Services.AddApiVersioning(opt =>
     opt.ApiVersionReader = new UrlSegmentApiVersionReader();
 });
 
+
+
 builder.Services.AddSwaggerGen(opt =>
 {
     opt.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo
@@ -42,7 +44,7 @@ builder.Services.AddCors(opt =>
 var app = builder.Build();
 
 // 3️⃣ Configure middleware directly
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
@@ -53,7 +55,9 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors("AllowAll");
 app.UseAuthorization();
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+app.MapGet("/health", () => "API is running");
+
 app.MapControllers();
 
 // 4️⃣ Run the app
